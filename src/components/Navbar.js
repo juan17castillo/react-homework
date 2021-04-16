@@ -9,12 +9,12 @@ class Navbar extends Component{
             <div className="container">
                 <NavLink className="navbar-brand" to="/" activeClassName="active">User's & Campus Manager</NavLink>
     
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" >
                     <span className="navbar-toggler-icon"></span>
                 </button>
     
-                <div className="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul className="navbar-nav me-auto">
+                <div className="collapse navbar-collapse">
+                    <ul className="navbar-nav mr-auto">
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/home" activeClassName="active">Inicio</NavLink>
                         </li>

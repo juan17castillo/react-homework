@@ -14,8 +14,9 @@ class Router extends Component {
                 <Navbar/>
                 {/*Configurar rutas y paginas (importar el react-router-dom)*/}
 
-
+                    
                     <Switch>
+                        {/*Cambiar la ruta barra por otro componente luego*/}
                         <Route exact path="/" component={Home}></Route>
                         <Route path="/home" component={Home}></Route>
                         <Route path="/login" component={Login}></Route>
