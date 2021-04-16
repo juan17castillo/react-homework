@@ -1,7 +1,6 @@
 # ⚛️ React-Homework
 
 
-
 📦 In this repository I will save the solution of the Advanced Web homework.
 
 ## Installation
@@ -20,6 +19,9 @@ npm install
 ```bash
 npm start
 ```
+
+## In case of error 
+npm update --force
 
 ## Contributing
 ✉️ Feel free to send me a message if you see something to change or contribute.

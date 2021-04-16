@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fire from '../config/firebase';
 
 class SingUp extends Component {
 
@@ -34,6 +35,21 @@ class SingUp extends Component {
         e.preventDefault();
         this.changeState();
         console.log(this.state.user);
+
+        if(this.state.user.password === this.state.user.passwordConfirmed){
+
+        }
+
+        fire
+        .auth()
+        .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(error =>{
+            console.log(error);
+        });
+
     }
 
     render() {
