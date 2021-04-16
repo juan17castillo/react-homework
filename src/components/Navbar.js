@@ -24,10 +24,10 @@ class Navbar extends Component{
                     </ul>
                     <ul className="navbar-nav">
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Sing Up</a>
+                            <NavLink className="nav-link" to="/singUp" activeClassName="active">Sing Up</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Login</a>
+                            <NavLink className="nav-link" to="/login" activeClassName="active">Login</NavLink> 
                         </li>
                     </ul>
                 </div>

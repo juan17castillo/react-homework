@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './components/Home';
 import Error from './components/Error';
 import Navbar from './components/Navbar';
+import Login from './components/Login';
+import SingUp from './components/SingUp';
 
 class Router extends Component {
     render() {
@@ -15,10 +17,11 @@ class Router extends Component {
 
                     <Switch>
                         <Route exact path="/" component={Home}></Route>
-                        <Route exact path="/home" component={Home}></Route>
+                        <Route path="/home" component={Home}></Route>
+                        <Route path="/login" component={Login}></Route>
+                        <Route path="/singUp" component={SingUp}></Route>
 
                         <Route component={Error}></Route>
-
                     </Switch>
 
 
