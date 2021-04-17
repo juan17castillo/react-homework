@@ -1,6 +1,12 @@
 import React,{Component} from 'react';
 import {NavLink} from 'react-router-dom';
+import fire from '../config/firebase';
+
 class Navbar extends Component{
+
+    logout(){
+        fire.auth().signOut();
+    }
 
     render() {
         return (
@@ -19,7 +25,7 @@ class Navbar extends Component{
                             <NavLink className="nav-link" to="/home" activeClassName="active">Inicio</NavLink>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Contact</a>
+                        <NavLink className="nav-link" to="/home" activeClassName="active">Inicio</NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav">
@@ -27,7 +33,8 @@ class Navbar extends Component{
                             <NavLink className="nav-link" to="/singUp" activeClassName="active">Sing Up</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink className="nav-link" to="/login" activeClassName="active">Login</NavLink> 
+                        <NavLink className="nav-link" to="/" activeClassName="active" onClick={this.logout}>Log out</NavLink>
+            
                         </li>
                     </ul>
                 </div>

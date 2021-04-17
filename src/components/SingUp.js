@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fire from '../config/firebase';
+import { Redirect } from 'react-router';
 
 class SingUp extends Component {
 
@@ -13,7 +14,10 @@ class SingUp extends Component {
     activeRef = React.createRef();
 
     state = {
-        user: {}
+        user: {},
+        db: fire.firestore(),
+        singedUp:false,
+        idCurrentUser:null
     }
 
     changeState = () => {
@@ -30,33 +34,38 @@ class SingUp extends Component {
             }
         });
     }
-
+ 
     saveUser = (e) => {
         e.preventDefault();
-        this.changeState();
+        this.changeState(); 
         console.log(this.state.user);
 
         if (this.state.user.password === this.state.user.passwordConfirmed) {
 
-        }
-
-        fire
+            fire
             .auth()
             .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
             .then(res => {
+                this.state.db.collection("users").doc(res.user.uid).set(this.state.user);
                 console.log(res);
             })
             .catch(error => {
                 console.log(error);
-            });
+            }); 
 
+            this.state.singedUp = true;
+        } 
     }
 
     render() {
+        if (this.state.singedUp) {
+            this.state.singedUp = false;
+            return <Redirect to='/login' />
+        }
         return (
             <React.Fragment>
                 <div className="container">
-                    <section className="mx-auto my-5 card w-50 py-3">
+                    <section className="mx-auto my-5 card w-75 py-3">
 
                         <form className="d-flex flex-column justify-content-center align-items-center" onSubmit={this.saveUser}>
 
