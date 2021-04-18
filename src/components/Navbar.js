@@ -25,7 +25,7 @@ class Navbar extends Component{
                             <NavLink className="nav-link" to="/home" activeClassName="active">Inicio</NavLink>
                         </li>
                         <li className="nav-item">
-                        <NavLink className="nav-link" to="/home" activeClassName="active">Inicio</NavLink>
+                        <NavLink className="nav-link" to="/venues" activeClassName="active">Sedes</NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav">
