@@ -84,31 +84,31 @@ class SingUp extends Component {
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="name" className="font-weight-bold">Nombre</label>
                                 <input className="form-control" type="text" name="name" ref={this.nameRef} onChange={this.changeState} />
-                                {this.validator.message('nombre', this.state.user.name, 'required')}
+                                {this.validator.message('nombre', this.state.user.name, 'required|alpha')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="lastName" className="font-weight-bold">Apellido</label>
                                 <input className="form-control" type="text" name="lastName" ref={this.lastNameRef} onChange={this.changeState} />
-                                {this.validator.message('apellido', this.state.user.lastName, 'required')}
+                                {this.validator.message('apellido', this.state.user.lastName, 'required|alpha')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="email" className="font-weight-bold">Email</label>
                                 <input className="form-control" type="text" name="email" ref={this.emailRef} onChange={this.changeState} />
-                                {this.validator.message('email', this.state.user.email, 'required')}
+                                {this.validator.message('email', this.state.user.email, 'required|email')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="password" className="font-weight-bold">Contraseña</label>
                                 <input className="form-control" type="password" name="password" ref={this.passwordRef} onChange={this.changeState} />
-                                {this.validator.message('contraseña', this.state.user.password, 'required')}
+                                {this.validator.message('contraseña', this.state.user.password, 'required|min:6')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="passwordConfirmed" className="font-weight-bold">Repetir Contraseña</label>
                                 <input className="form-control" type="password" name="passwordConfirmed" ref={this.passwordConfirmedRef} onChange={this.changeState} />
-                                {this.validator.message('repetir contraseña', this.state.user.passwordConfirmed, 'required')}
+                                {this.validator.message('repetir contraseña', this.state.user.passwordConfirmed, 'required|min:6')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
