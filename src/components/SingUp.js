@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import fire from '../config/firebase';
-import { Redirect } from 'react-router';
+import { Redirect } from 'react-router';  
+import SimpleReactValidator from 'simple-react-validator';
+import es from '../config/es';
+import './validator.css';
 
 class SingUp extends Component {
 
@@ -10,7 +13,13 @@ class SingUp extends Component {
     passwordRef = React.createRef();
     passwordConfirmedRef = React.createRef();
     validUntilRef = React.createRef();
-    campusRef = React.createRef(); 
+    campusRef = React.createRef();
+    
+    constructor(props) {
+        super(props);   
+        SimpleReactValidator.addLocale('es', es );
+        this.validator = new SimpleReactValidator({locale:'es'}); 
+    }
 
     state = {
         user: {},
@@ -29,27 +38,33 @@ class SingUp extends Component {
                 validUntil: this.validUntilRef.current.value,
                 campus: this.campusRef.current.value
             }
-        });
+        }); 
     }
 
     saveUser = (e) => {
+
         e.preventDefault();
         this.changeState();
-        console.log(this.state.user);
 
-        if (this.state.user.password === this.state.user.passwordConfirmed) {
+        if (this.validator.allValid()) {
 
-            fire
-                .auth()
-                .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
-                .then(res => {
-                    this.state.db.collection("users").doc(res.user.uid).set(this.state.user); 
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+            if (this.state.user.password === this.state.user.passwordConfirmed) {
 
-            this.state.singedUp = true;
+                fire
+                    .auth()
+                    .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
+                    .then(res => {
+                        this.state.db.collection("users").doc(res.user.uid).set(this.state.user);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
+                this.state.singedUp = true;
+            }
+        } else {
+            this.validator.showMessages();
+            this.forceUpdate();
         }
     }
 
@@ -69,31 +84,37 @@ class SingUp extends Component {
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="name" className="font-weight-bold">Nombre</label>
                                 <input className="form-control" type="text" name="name" ref={this.nameRef} onChange={this.changeState} />
+                                {this.validator.message('nombre', this.state.user.name, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="lastName" className="font-weight-bold">Apellido</label>
                                 <input className="form-control" type="text" name="lastName" ref={this.lastNameRef} onChange={this.changeState} />
+                                {this.validator.message('apellido', this.state.user.lastName, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="email" className="font-weight-bold">Email</label>
                                 <input className="form-control" type="text" name="email" ref={this.emailRef} onChange={this.changeState} />
+                                {this.validator.message('email', this.state.user.email, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="password" className="font-weight-bold">Contraseña</label>
                                 <input className="form-control" type="password" name="password" ref={this.passwordRef} onChange={this.changeState} />
+                                {this.validator.message('contraseña', this.state.user.password, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="passwordConfirmed" className="font-weight-bold">Repetir Contraseña</label>
                                 <input className="form-control" type="password" name="passwordConfirmed" ref={this.passwordConfirmedRef} onChange={this.changeState} />
+                                {this.validator.message('repetir contraseña', this.state.user.passwordConfirmed, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="validUntil" className="font-weight-bold">Valido Hasta</label>
                                 <input className="form-control" type="date" name="validUntil" ref={this.validUntilRef} onChange={this.changeState} />
+                                {this.validator.message('valido hasta', this.state.user.validUntil, 'required')}
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
@@ -104,8 +125,8 @@ class SingUp extends Component {
                                     <option>3</option>
                                     <option>4</option>
                                     <option>5</option>
-                                </select>
-                            </div> 
+                                </select> 
+                            </div>
 
                             <input type="submit" value="Register" className="btn btn-primary" />
 

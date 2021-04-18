@@ -1,5 +1,4 @@
-// Spanish
-const es = {
+  const es ={
     accepted             : ':attribute debe ser aceptado.',
     after                : ':attribute debe ser una fecha posterior a :date.',
     after_or_equal       : ':attribute debe ser una fecha posterior o igual a :date.',
