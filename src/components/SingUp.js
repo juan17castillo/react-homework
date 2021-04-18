@@ -10,14 +10,12 @@ class SingUp extends Component {
     passwordRef = React.createRef();
     passwordConfirmedRef = React.createRef();
     validUntilRef = React.createRef();
-    campusRef = React.createRef();
-    activeRef = React.createRef();
+    campusRef = React.createRef(); 
 
     state = {
         user: {},
         db: fire.firestore(),
-        singedUp:false,
-        idCurrentUser:null
+        singedUp: false
     }
 
     changeState = () => {
@@ -29,32 +27,30 @@ class SingUp extends Component {
                 password: this.passwordRef.current.value,
                 passwordConfirmed: this.passwordConfirmedRef.current.value,
                 validUntil: this.validUntilRef.current.value,
-                campus: this.campusRef.current.value,
-                active: this.activeRef.current.value
+                campus: this.campusRef.current.value
             }
         });
     }
- 
+
     saveUser = (e) => {
         e.preventDefault();
-        this.changeState(); 
+        this.changeState();
         console.log(this.state.user);
 
         if (this.state.user.password === this.state.user.passwordConfirmed) {
 
             fire
-            .auth()
-            .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
-            .then(res => {
-                this.state.db.collection("users").doc(res.user.uid).set(this.state.user);
-                console.log(res);
-            })
-            .catch(error => {
-                console.log(error);
-            }); 
+                .auth()
+                .createUserWithEmailAndPassword(this.state.user.email, this.state.user.password)
+                .then(res => {
+                    this.state.db.collection("users").doc(res.user.uid).set(this.state.user); 
+                })
+                .catch(error => {
+                    console.log(error);
+                });
 
             this.state.singedUp = true;
-        } 
+        }
     }
 
     render() {
@@ -72,43 +68,44 @@ class SingUp extends Component {
                             <h2 className="mb-3">Sing Up</h2>
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="name" className="font-weight-bold">Nombre</label>
-                                <input type="text" name="name" ref={this.nameRef} onChange={this.changeState} />
+                                <input className="form-control" type="text" name="name" ref={this.nameRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="lastName" className="font-weight-bold">Apellido</label>
-                                <input type="text" name="lastName" ref={this.lastNameRef} onChange={this.changeState} />
+                                <input className="form-control" type="text" name="lastName" ref={this.lastNameRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="email" className="font-weight-bold">Email</label>
-                                <input type="text" name="email" ref={this.emailRef} onChange={this.changeState} />
+                                <input className="form-control" type="text" name="email" ref={this.emailRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="password" className="font-weight-bold">Contraseña</label>
-                                <input type="password" name="password" ref={this.passwordRef} onChange={this.changeState} />
+                                <input className="form-control" type="password" name="password" ref={this.passwordRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="passwordConfirmed" className="font-weight-bold">Repetir Contraseña</label>
-                                <input type="password" name="passwordConfirmed" ref={this.passwordConfirmedRef} onChange={this.changeState} />
+                                <input className="form-control" type="password" name="passwordConfirmed" ref={this.passwordConfirmedRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="validUntil" className="font-weight-bold">Valido Hasta</label>
-                                <input type="text" name="validUntil" ref={this.validUntilRef} onChange={this.changeState} />
+                                <input className="form-control" type="date" name="validUntil" ref={this.validUntilRef} onChange={this.changeState} />
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="campus" className="font-weight-bold">Sedes</label>
-                                <input type="text" name="campus" ref={this.campusRef} onChange={this.changeState} />
-                            </div>
-
-                            <div className="d-flex flex-column justify-content-center align-items-center mb-3">
-                                <label htmlFor="active" className="font-weight-bold">Activo</label>
-                                <input type="text" name="active" ref={this.activeRef} onChange={this.changeState} />
-                            </div>
+                                <select className="form-control" name="campus" ref={this.campusRef} onChange={this.changeState} >
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div> 
 
                             <input type="submit" value="Register" className="btn btn-primary" />
 

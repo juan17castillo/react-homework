@@ -5,18 +5,19 @@ import {NavLink} from 'react-router-dom';
 
 class Login extends Component {
 
-    userNameRef = React.createRef();
+    emailRef = React.createRef();
     passwordRef = React.createRef();
 
     state = {
         user: {},
+        db: fire.firestore(),
         logged: false
     }
 
     changeState = () => {
         this.setState({
             user: {
-                userName: this.userNameRef.current.value,
+                email: this.emailRef.current.value,
                 password: this.passwordRef.current.value
             }
         });
@@ -24,19 +25,19 @@ class Login extends Component {
 
     loginUser = (e) => {
         e.preventDefault();
-        this.changeState();
-        console.log(this.state.user);
+        this.changeState(); 
 
         fire
             .auth()
-            .signInWithEmailAndPassword(this.userNameRef.current.value, this.passwordRef.current.value)
+            .signInWithEmailAndPassword(this.emailRef.current.value, this.passwordRef.current.value)
             .then(res => {
-                
-                console.log(res); 
+                this.setState({logged:true}) 
             })
-            .catch(err => { console.log(err) });
+            .catch(err => {  
+                console.log(err) 
+            });
 
-            this.state.logged = true;
+            
     }
 
     render() {
@@ -52,13 +53,13 @@ class Login extends Component {
                             <h2 className="mb-5">Log In</h2>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
-                                <label htmlFor="userName" className="font-weight-bold">Usuario</label>
-                                <input type="text" name="userName" ref={this.userNameRef} onChange={this.changeState} required/>
+                                <label htmlFor="email" className="font-weight-bold">Email</label>
+                                <input className="form-control" type="text" name="email" ref={this.emailRef} onChange={this.changeState} required/>
                             </div>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="password" className="font-weight-bold">Contraseña</label>
-                                <input type="password" name="password" ref={this.passwordRef} onChange={this.changeState} required/>
+                                <input className="form-control" type="password" name="password" ref={this.passwordRef} onChange={this.changeState} required/>
                             </div>
                             <NavLink className="mb-3" to="/singUp" >Registrarme</NavLink>
                             <input type="submit" value="Login" className="btn btn-primary"/>
