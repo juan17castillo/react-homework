@@ -10,9 +10,8 @@ class Home extends Component {
 
         <div className="container">
           <section>
-            <h1>Home</h1>
+            <Venues />
           </section>
-          <Venues />
         </div>
       </React.Fragment>
     );
