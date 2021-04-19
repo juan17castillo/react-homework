@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import fire from '../config/firebase';
 import {NavLink} from 'react-router-dom';
+import sha256 from 'crypto-js/sha256';
 
 class Login extends Component {
 
@@ -29,7 +30,7 @@ class Login extends Component {
 
         fire
             .auth()
-            .signInWithEmailAndPassword(this.emailRef.current.value, this.passwordRef.current.value)
+            .signInWithEmailAndPassword(this.emailRef.current.value, sha256(this.passwordRef.current.value).toString() )
             .then(res => {
                 this.setState({logged:true}) 
             })

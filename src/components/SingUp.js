@@ -4,6 +4,7 @@ import { Redirect } from "react-router";
 import SimpleReactValidator from "simple-react-validator";
 import es from "../config/es";
 import "./validator.css";
+import sha256 from 'crypto-js/sha256';
 
 class SingUp extends Component {
   nameRef = React.createRef();
@@ -18,6 +19,7 @@ class SingUp extends Component {
     super(props);
     SimpleReactValidator.addLocale("es", es);
     this.validator = new SimpleReactValidator({ locale: "es" });
+ 
   }
 
   state = {
@@ -50,8 +52,8 @@ class SingUp extends Component {
         name: this.nameRef.current.value,
         lastName: this.lastNameRef.current.value,
         email: this.emailRef.current.value,
-        password: this.passwordRef.current.value,
-        passwordConfirmed: this.passwordConfirmedRef.current.value,
+        password: sha256(this.passwordRef.current.value).toString(),
+        passwordConfirmed: sha256(this.passwordConfirmedRef.current.value).toString(),
         validUntil: this.validUntilRef.current.value,
         venueId: this.campusRef.current.value,
       },
