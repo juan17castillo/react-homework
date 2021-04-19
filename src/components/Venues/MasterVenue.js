@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import fire from "../../config/firebase";
+import ListUsers from "../../components/Users/ListUsers";
 import Navbar from "../Navbar";
 
 class MasterVenue extends Component {
@@ -71,6 +72,7 @@ class MasterVenue extends Component {
             )}
           </div>
         </div>
+        <ListUsers />
       </div>
     );
   }
