@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import ModalEditVenue from "./ModalEditVenue";
 import fire from "../../config/firebase";
 import { NavLink } from "react-router-dom";
+
 class ListVenues extends Component {
   state = {
     venues: null,
     db: fire.firestore(),
+    requiredItem: "",
   };
 
   componentDidMount() {
@@ -26,6 +27,16 @@ class ListVenues extends Component {
         this.setState({ venues: venues });
       })
       .catch((error) => console.log(error));
+  }
+
+  getInitialState() {
+    return { view: { showModal: false } };
+  }
+  handleHideModal() {
+    this.setState({ view: { showModal: false } });
+  }
+  handleShowModal() {
+    this.setState({ view: { showModal: true } });
   }
 
   onDelete = (venueId) => {
@@ -62,15 +73,23 @@ class ListVenues extends Component {
                       {" "}
                       <i className="fas fa-eye"></i>
                     </NavLink>
-                    <button
-                      type="button"
+                    <NavLink
                       className="btn btn-warning mr-2"
-                      data-toggle="modal"
-                      data-target="#exampleModalCenter"
+                      to={{
+                        pathname: "/updateVenue",
+                        aboutProps: {
+                          venueId: venue.id,
+                          venueName: venue.name,
+                          venuePhone: venue.phone,
+                          venueEmail: venue.email,
+                          venueAddress: venue.address,
+                          venueCity: venue.city,
+                          venueZipCode: venue.zipCode,
+                        },
+                      }}
                     >
-                      <ModalEditVenue />
                       <i className="fas fa-edit"></i>
-                    </button>
+                    </NavLink>
                     <button
                       className="btn btn-danger"
                       onClick={() => this.onDelete(venue.id)}
