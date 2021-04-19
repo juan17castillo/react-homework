@@ -1,0 +1,73 @@
+import React, { Component } from "react";
+import fire from "../../config/firebase";
+import Navbar from "../Navbar";
+
+class MasterVenue extends Component {
+  state = {
+    venue: {},
+    db: fire.firestore(),
+  };
+
+  componentDidMount() {
+    const url = window.location.href;
+    const id = url.replace("http://localhost:3000/venue/", "");
+    var docRef = this.state.db.collection("venues").doc(id);
+
+    docRef.get().then((doc) => {
+      if (doc.exists) {
+        let venue = {};
+        venue = doc.data();
+        this.setState({ venue: venue });
+      } else {
+        console.log("No such document!");
+      }
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Navbar />
+        <div className="container text-center py-5">
+          <div className="card">
+            <h1 className="py-3 text-primary">
+              <strong>{this.state.venue.name}</strong>
+            </h1>
+            <div className="row py-2">
+              <h3 class="col-sm text-secondary">Ciudad</h3>
+              <h2 class="col-sm">{this.state.venue.city}</h2>
+            </div>
+            <div className="row py-2">
+              <h3 class="col-sm text-secondary">Dirección</h3>
+              <h2 class="col-sm">{this.state.venue.address}</h2>
+            </div>
+            <div className="row py-2">
+              <h3 class="col-sm text-secondary">Email</h3>
+              <h2 class="col-sm">{this.state.venue.email}</h2>
+            </div>
+            <div className="row py-2">
+              <h3 class="col-sm text-secondary">Teléfono</h3>
+              <h2 class="col-sm">{this.state.venue.phone}</h2>
+            </div>
+            <div className="row py-2">
+              <h3 class="col-sm text-secondary">Código Zip</h3>
+              <h2 class="col-sm">{this.state.venue.zipCode}</h2>
+            </div>
+            {this.state.venue.active === "on" ? (
+              <div className="row py-2">
+                <h3 class="col-sm text-secondary">Status</h3>
+                <h2 class="col-sm text-success">Activa</h2>
+              </div>
+            ) : (
+              <div className="row py-2">
+                <h3 class="col-sm text-secondary">Status</h3>
+                <h2 class="col-sm">Desactivada</h2>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+export default MasterVenue;

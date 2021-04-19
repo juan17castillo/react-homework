@@ -42,6 +42,9 @@ class CreateVenue extends Component {
     this.changeState();
     if (this.validator.allValid()) {
       this.state.db.collection("venues").doc().set(this.state.venue);
+      setTimeout(function () {
+        window.location.href = "/home";
+      }, 1000);
     } else {
       this.validator.showMessages();
       this.forceUpdate();
@@ -56,12 +59,12 @@ class CreateVenue extends Component {
           <h1 className="my-5">Crear sede</h1>
           <div className="card col-md-12 py-5 my-5">
             <form onSubmit={this.saveVenue}>
-              <div class="form-row col-md-12">
-                <div class="form-group col-md-6">
+              <div className="form-row col-md-12">
+                <div className="form-group col-md-6">
                   <label htmlFor="name">Nombre</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     name="name"
                     ref={this.nameRef}
                     onChange={this.changeState}
@@ -70,14 +73,14 @@ class CreateVenue extends Component {
                   {this.validator.message(
                     "nombre",
                     this.state.venue.name,
-                    "required|alpha"
+                    "required|alpha_num_space"
                   )}
                 </div>
-                <div class="form-group col-md-6">
+                <div className="form-group col-md-6">
                   <label htmlFor="phone">Teléfono</label>
                   <input
                     type="tel"
-                    class="form-control"
+                    className="form-control"
                     name="phone"
                     ref={this.phoneRef}
                     onChange={this.changeState}
@@ -90,12 +93,12 @@ class CreateVenue extends Component {
                   )}
                 </div>
               </div>
-              <div class="form-row col-md-12">
-                <div class="form-group col-md-4">
+              <div className="form-row col-md-12">
+                <div className="form-group col-md-4">
                   <label htmlFor="email">Email</label>
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     name="email"
                     ref={this.emailRef}
                     onChange={this.changeState}
@@ -107,11 +110,11 @@ class CreateVenue extends Component {
                     "required|email"
                   )}
                 </div>
-                <div class="form-group col-md-8">
+                <div className="form-group col-md-8">
                   <label htmlFor="address">Dirección</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     name="address"
                     ref={this.addressRef}
                     onChange={this.changeState}
@@ -120,16 +123,16 @@ class CreateVenue extends Component {
                   {this.validator.message(
                     "dirección",
                     this.state.venue.address,
-                    "required|alpha_num"
+                    "required"
                   )}
                 </div>
               </div>
-              <div class="form-row col-md-12">
-                <div class="form-group col-md-8">
+              <div className="form-row col-md-12">
+                <div className="form-group col-md-8">
                   <label htmlFor="city">Ciudad</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     ref={this.cityRef}
                     onChange={this.changeState}
                     name="city"
@@ -138,14 +141,14 @@ class CreateVenue extends Component {
                   {this.validator.message(
                     "ciudad",
                     this.state.venue.city,
-                    "required|alpha"
+                    "required"
                   )}
                 </div>
-                <div class="form-group col-md-4">
+                <div className="form-group col-md-4">
                   <label htmlFor="zipCode">Código Zip</label>
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     name="zipCode"
                     ref={this.zipCodeRef}
                     onChange={this.changeState}
@@ -154,25 +157,25 @@ class CreateVenue extends Component {
                   {this.validator.message(
                     "código zip",
                     this.state.venue.zipCode,
-                    "required|alpha"
+                    "required|numeric"
                   )}
                 </div>
               </div>
-              <div class="form-group">
-                <div class="form-check">
+              <div className="form-group">
+                <div className="form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     name="active"
                     ref={this.activeRef}
                     onChange={this.changeState}
                     type="checkbox"
                   />
-                  <label class="form-check-label" htmlFor="active">
+                  <label className="form-check-label" htmlFor="active">
                     Activa
                   </label>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Crear sede
               </button>
             </form>

@@ -25,7 +25,7 @@ class SingUp extends Component {
     venues: null,
     db: fire.firestore(),
     singedUp: false,
-    campus: null,
+    campusId: [],
   };
 
   componentDidMount() {
@@ -33,11 +33,10 @@ class SingUp extends Component {
       .collection("venues")
       .get()
       .then((snapshot) => {
-        
         const venues = [];
         snapshot.forEach((doc) => {
-            console.log(doc);
-            const data = doc.data();
+          this.state.campusId.push(doc.id);
+          const data = doc.data();
           venues.push(data);
         });
         this.setState({ venues: venues });
@@ -55,7 +54,7 @@ class SingUp extends Component {
         passwordConfirmed: this.passwordConfirmedRef.current.value,
         validUntil: this.validUntilRef.current.value,
       },
-      campus: this.campusRef.current.value,
+      campusId: this.campusRef.current.value,
     });
   };
 
