@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import fire from "../../config/firebase";
-import ListUsers from "../../components/Users/ListUsers";
 import Navbar from "../Navbar";
+import { NavLink } from "react-router-dom";
 
 class MasterVenue extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class MasterVenue extends Component {
   state = {
     venue: {},
     db: fire.firestore(),
+    users: null,
   };
 
   componentDidMount() {
@@ -28,6 +29,19 @@ class MasterVenue extends Component {
           console.log("No such document!");
         }
       });
+    this.state.db
+      .collection("users")
+      .where("venueId", "==", venueId)
+      .get()
+      .then((snapshot) => {
+        const users = [];
+        snapshot.forEach((doc) => {
+          const data = doc.data();
+          users.push(data);
+        });
+        this.setState({ users: users });
+      })
+      .catch((error) => console.log(error));
   }
 
   render() {
@@ -72,7 +86,49 @@ class MasterVenue extends Component {
             )}
           </div>
         </div>
-        <ListUsers />
+        <div className="container">
+          <h1 className="py-3">
+            <strong>Usuarios asociados</strong>
+          </h1>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Email</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.users &&
+                this.state.users.map((user) => {
+                  return (
+                    <tr key={user.id}>
+                      <td>{user.name}</td>
+                      <td>{user.lastName}</td>
+                      <td>{user.email}</td>
+                      <td>
+                        {" "}
+                        <NavLink
+                          className="btn btn-warning mr-2"
+                          to="/updateUser"
+                        >
+                          <i className="fas fa-edit"></i>
+                        </NavLink>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => this.onDelete(user.id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+          {this.state.users === null ? <p1>No hay usuarios asociados</p1> : ""}
+        </div>
       </div>
     );
   }

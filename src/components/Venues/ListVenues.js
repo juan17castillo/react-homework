@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import fire from "../../config/firebase";
+import Swal from "sweetalert2";
 import { NavLink } from "react-router-dom";
 
 class ListVenues extends Component {
   state = {
     venues: null,
     db: fire.firestore(),
+    delete: false,
   };
 
   componentDidMount() {
@@ -27,11 +29,26 @@ class ListVenues extends Component {
   }
 
   onDelete = (venueId) => {
-    this.state.db.collection("venues").doc(venueId).delete();
-    this.componentDidMount();
+    Swal.fire({
+      title: "Estás seguro de eliminar la sede?",
+      text: "Serán cambios irreversibles!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, eliminar!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.state.db.collection("venues").doc(venueId).delete();
+        window.location.reload(false);
+      }
+    });
   };
 
   render() {
+    // if(this.state.delete === true) {
+    //   return <Redirect to="/home" />;
+    // }
     return (
       <table className="table">
         <thead>

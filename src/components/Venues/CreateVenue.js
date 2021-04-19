@@ -68,7 +68,7 @@ class CreateVenue extends Component {
                     name="name"
                     ref={this.nameRef}
                     onChange={this.changeState}
-                    placeholder="Jhon Doe"
+                    placeholder="Sede Manglares"
                   />
                   {this.validator.message(
                     "nombre",
