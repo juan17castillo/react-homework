@@ -34,34 +34,34 @@ class MasterVenue extends Component {
               <strong>{this.state.venue.name}</strong>
             </h1>
             <div className="row py-2">
-              <h3 class="col-sm text-secondary">Ciudad</h3>
-              <h2 class="col-sm">{this.state.venue.city}</h2>
+              <h3 className="col-sm text-secondary">Ciudad</h3>
+              <h2 className="col-sm">{this.state.venue.city}</h2>
             </div>
             <div className="row py-2">
-              <h3 class="col-sm text-secondary">Dirección</h3>
-              <h2 class="col-sm">{this.state.venue.address}</h2>
+              <h3 className="col-sm text-secondary">Dirección</h3>
+              <h2 className="col-sm">{this.state.venue.address}</h2>
             </div>
             <div className="row py-2">
-              <h3 class="col-sm text-secondary">Email</h3>
-              <h2 class="col-sm">{this.state.venue.email}</h2>
+              <h3 className="col-sm text-secondary">Email</h3>
+              <h2 className="col-sm">{this.state.venue.email}</h2>
             </div>
             <div className="row py-2">
-              <h3 class="col-sm text-secondary">Teléfono</h3>
-              <h2 class="col-sm">{this.state.venue.phone}</h2>
+              <h3 className="col-sm text-secondary">Teléfono</h3>
+              <h2 className="col-sm">{this.state.venue.phone}</h2>
             </div>
             <div className="row py-2">
-              <h3 class="col-sm text-secondary">Código Zip</h3>
-              <h2 class="col-sm">{this.state.venue.zipCode}</h2>
+              <h3 className="col-sm text-secondary">Código Zip</h3>
+              <h2 className="col-sm">{this.state.venue.zipCode}</h2>
             </div>
             {this.state.venue.active === "on" ? (
               <div className="row py-2">
-                <h3 class="col-sm text-secondary">Status</h3>
-                <h2 class="col-sm text-success">Activa</h2>
+                <h3 className="col-sm text-secondary">Status</h3>
+                <h2 className="col-sm text-success">Activa</h2>
               </div>
             ) : (
               <div className="row py-2">
-                <h3 class="col-sm text-secondary">Status</h3>
-                <h2 class="col-sm">Desactivada</h2>
+                <h3 className="col-sm text-secondary">Status</h3>
+                <h2 className="col-sm text-secondary">Desactivada</h2>
               </div>
             )}
           </div>

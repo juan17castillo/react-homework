@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ModalEditVenue from "./ModalEditVenue";
 import fire from "../../config/firebase";
 import { NavLink } from "react-router-dom";
 class ListVenues extends Component {
@@ -61,13 +62,15 @@ class ListVenues extends Component {
                       {" "}
                       <i className="fas fa-eye"></i>
                     </NavLink>
-                    <NavLink
+                    <button
+                      type="button"
                       className="btn btn-warning mr-2"
-                      to="/editVenue"
-                      activeClassName="active"
+                      data-toggle="modal"
+                      data-target="#exampleModalCenter"
                     >
+                      <ModalEditVenue />
                       <i className="fas fa-edit"></i>
-                    </NavLink>
+                    </button>
                     <button
                       className="btn btn-danger"
                       onClick={() => this.onDelete(venue.id)}
