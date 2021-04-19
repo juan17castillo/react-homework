@@ -17,11 +17,9 @@ class ListVenues extends Component {
         snapshot.forEach((doc) => {
           const data = { ...doc.data(), id: doc.id };
           venues.push(data);
-          if (data.venueId === "") {
-            this.state.db.collection("venues").doc(doc.id).update({
-              venueId: doc.id,
-            });
-          }
+          this.state.db.collection("venues").doc(doc.id).update({
+            venueId: doc.id,
+          });
         });
         this.setState({ venues: venues });
       })
@@ -63,10 +61,7 @@ class ListVenues extends Component {
                       {" "}
                       <i className="fas fa-eye"></i>
                     </NavLink>
-                    <NavLink
-                      className="btn btn-warning mr-2"
-                      to={idUpdate}
-                    >
+                    <NavLink className="btn btn-warning mr-2" to={idUpdate}>
                       <i className="fas fa-edit"></i>
                     </NavLink>
                     <button

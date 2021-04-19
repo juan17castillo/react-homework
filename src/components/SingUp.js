@@ -25,7 +25,7 @@ class SingUp extends Component {
     venues: null,
     db: fire.firestore(),
     singedUp: false,
-    campusId: [],
+    campusId: null,
   };
 
   componentDidMount() {
@@ -35,7 +35,7 @@ class SingUp extends Component {
       .then((snapshot) => {
         const venues = [];
         snapshot.forEach((doc) => {
-          this.state.campusId.push(doc.id);
+          this.setState({ campusId: doc.id });
           const data = doc.data();
           venues.push(data);
         });
@@ -53,6 +53,7 @@ class SingUp extends Component {
         password: this.passwordRef.current.value,
         passwordConfirmed: this.passwordConfirmedRef.current.value,
         validUntil: this.validUntilRef.current.value,
+        venueId: this.campusRef.current.value,
       },
       campusId: this.campusRef.current.value,
     });
@@ -75,6 +76,12 @@ class SingUp extends Component {
               .collection("users")
               .doc(res.user.uid)
               .set(this.state.user);
+            this.state.db
+              .collection("venues")
+              .doc(this.state.campusId)
+              .collection("users")
+              .doc(res.user.uid)
+              .set({ idUser: res.user.uid });
           })
           .catch((error) => {
             console.log(error);
@@ -87,6 +94,7 @@ class SingUp extends Component {
       this.forceUpdate();
     }
   };
+
 
   render() {
     if (this.state.singedUp) {
@@ -116,7 +124,7 @@ class SingUp extends Component {
                 {this.validator.message(
                   "nombre",
                   this.state.user.name,
-                  "required|alpha"
+                  "required|alpha_space"
                 )}
               </div>
 
@@ -223,7 +231,11 @@ class SingUp extends Component {
                 >
                   {this.state.venues &&
                     this.state.venues.map((venue) => {
-                      return <option>{venue.name}</option>;
+                      return (
+                        <option key={venue.venueId} value={venue.venueId}>
+                          {venue.name}
+                        </option>
+                      );
                     })}
                 </select>
               </div>
