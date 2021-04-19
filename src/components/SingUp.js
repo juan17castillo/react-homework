@@ -77,7 +77,7 @@ class SingUp extends Component {
             this.state.db
               .collection("users")
               .doc(res.user.uid)
-              .set(this.state.user);
+              .set({...this.state.user, id:res.user.uid});
             this.state.db
               .collection("venues")
               .doc(this.state.campusId)
