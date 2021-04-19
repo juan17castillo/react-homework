@@ -9,7 +9,6 @@ class UpdateVenue extends Component {
     super(props);
     SimpleReactValidator.addLocale("es", es);
     this.validator = new SimpleReactValidator({ locale: "es" });
-    console.log(props.location.aboutProps.venueId);
   }
 
   nameRef = React.createRef();
@@ -39,12 +38,29 @@ class UpdateVenue extends Component {
     });
   };
 
-  saveVenue = (e) => {
+  componentDidMount() {
+    let venueId = this.props.match.params.idUpdate
+    this.state.db
+      .collection("venues")
+      .doc(venueId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          let venue = {};
+          venue = doc.data();
+          this.setState({ venue: venue });
+        } else {
+          console.log("No such document!");
+        }
+      });
+  }
+
+  updateVenue = (e) => {
     e.preventDefault();
     this.changeState();
+    let id = this.props.match.params.idUpdate
     if (this.validator.allValid()) {
-      //   this.state.db.collection("venues").doc(venue.id).set(this.state.venue);
-      this.state.db.collection("venues").doc("46O8tWGVtsuTVXnjdpIE").set(this.state.venue);
+      this.state.db.collection("venues").doc(id).set({...this.state.venue, venueId: id});
       setTimeout(function () {
         window.location.href = "/home";
       }, 1000);
@@ -59,9 +75,9 @@ class UpdateVenue extends Component {
       <div>
         <Navbar />
         <div className="container text-center">
-          <h1 className="my-5">{}</h1>
+          <h1 className="my-5">Modificar sede</h1>
           <div className="card col-md-12 py-5 my-5">
-            <form onSubmit={this.saveVenue}>
+            <form onSubmit={this.updateVenue}>
               <div className="form-row col-md-12">
                 <div className="form-group col-md-6">
                   <label htmlFor="name">Nombre</label>
@@ -71,7 +87,7 @@ class UpdateVenue extends Component {
                     name="name"
                     ref={this.nameRef}
                     onChange={this.changeState}
-                    placeholder="Jhon Doe"
+                    value={this.state.venue.name}
                   />
                   {this.validator.message(
                     "nombre",
@@ -87,7 +103,7 @@ class UpdateVenue extends Component {
                     name="phone"
                     ref={this.phoneRef}
                     onChange={this.changeState}
-                    placeholder="(+57) 555 555 55 55"
+                    value={this.state.venue.phone}
                   />
                   {this.validator.message(
                     "teléfono",
@@ -105,7 +121,7 @@ class UpdateVenue extends Component {
                     name="email"
                     ref={this.emailRef}
                     onChange={this.changeState}
-                    placeholder="Email"
+                    value={this.state.venue.email}
                   />
                   {this.validator.message(
                     "correo",
@@ -121,7 +137,7 @@ class UpdateVenue extends Component {
                     name="address"
                     ref={this.addressRef}
                     onChange={this.changeState}
-                    placeholder="Avenida 555 calle 55"
+                    value={this.state.venue.address}
                   />
                   {this.validator.message(
                     "dirección",
@@ -139,7 +155,7 @@ class UpdateVenue extends Component {
                     ref={this.cityRef}
                     onChange={this.changeState}
                     name="city"
-                    placeholder="Cali"
+                    value={this.state.venue.city}
                   />
                   {this.validator.message(
                     "ciudad",
@@ -155,7 +171,7 @@ class UpdateVenue extends Component {
                     name="zipCode"
                     ref={this.zipCodeRef}
                     onChange={this.changeState}
-                    placeholder="760026"
+                    value={this.state.venue.zipCode}
                   />
                   {this.validator.message(
                     "código zip",

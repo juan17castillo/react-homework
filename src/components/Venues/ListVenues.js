@@ -6,7 +6,6 @@ class ListVenues extends Component {
   state = {
     venues: null,
     db: fire.firestore(),
-    requiredItem: "",
   };
 
   componentDidMount() {
@@ -29,16 +28,6 @@ class ListVenues extends Component {
       .catch((error) => console.log(error));
   }
 
-  getInitialState() {
-    return { view: { showModal: false } };
-  }
-  handleHideModal() {
-    this.setState({ view: { showModal: false } });
-  }
-  handleShowModal() {
-    this.setState({ view: { showModal: true } });
-  }
-
   onDelete = (venueId) => {
     this.state.db.collection("venues").doc(venueId).delete();
     this.componentDidMount();
@@ -59,6 +48,7 @@ class ListVenues extends Component {
           {this.state.venues &&
             this.state.venues.map((venue) => {
               const id = "venue/" + venue.id;
+              const idUpdate = "updateVenue/" + venue.id;
               return (
                 <tr key={venue.id}>
                   <td className="align-middle">{venue.name}</td>
@@ -75,18 +65,7 @@ class ListVenues extends Component {
                     </NavLink>
                     <NavLink
                       className="btn btn-warning mr-2"
-                      to={{
-                        pathname: "/updateVenue",
-                        aboutProps: {
-                          venueId: venue.id,
-                          venueName: venue.name,
-                          venuePhone: venue.phone,
-                          venueEmail: venue.email,
-                          venueAddress: venue.address,
-                          venueCity: venue.city,
-                          venueZipCode: venue.zipCode,
-                        },
-                      }}
+                      to={idUpdate}
                     >
                       <i className="fas fa-edit"></i>
                     </NavLink>

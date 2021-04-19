@@ -3,25 +3,30 @@ import fire from "../../config/firebase";
 import Navbar from "../Navbar";
 
 class MasterVenue extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   state = {
     venue: {},
     db: fire.firestore(),
   };
 
   componentDidMount() {
-    const url = window.location.href;
-    const id = url.replace("http://localhost:3000/venue/", "");
-    var docRef = this.state.db.collection("venues").doc(id);
-
-    docRef.get().then((doc) => {
-      if (doc.exists) {
-        let venue = {};
-        venue = doc.data();
-        this.setState({ venue: venue });
-      } else {
-        console.log("No such document!");
-      }
-    });
+    let venueId = this.props.match.params.id;
+    this.state.db
+      .collection("venues")
+      .doc(venueId)
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          let venue = {};
+          venue = doc.data();
+          this.setState({ venue: venue });
+        } else {
+          console.log("No such document!");
+        }
+      });
   }
 
   render() {

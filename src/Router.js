@@ -17,7 +17,7 @@ class Router extends Component {
           <Route exact path="/" component={Login}></Route>
           <Route path="/home" component={Home}></Route>
           <Route path="/createVenue" component={CreateVenue}></Route>
-          <Route path="/updateVenue" component={UpdateVenue}></Route>
+          <Route path="/updateVenue/:idUpdate" component={UpdateVenue}></Route>
           <Route path="/venue/:id" component={MasterVenue}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/singUp" component={SingUp}></Route>
