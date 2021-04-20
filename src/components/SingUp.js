@@ -144,7 +144,7 @@ class SingUp extends Component {
                 {this.validator.message(
                   "apellido",
                   this.state.user.lastName,
-                  "required|alpha"
+                  "required|alpha_space"
                 )}
               </div>
 

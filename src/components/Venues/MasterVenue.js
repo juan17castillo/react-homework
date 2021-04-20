@@ -111,7 +111,7 @@ class MasterVenue extends Component {
                         {" "}
                         <NavLink
                           className="btn btn-warning mr-2"
-                          to="/updateUser"
+                          to={`/updateUser/${user.id}`}
                         >
                           <i className="fas fa-edit"></i>
                         </NavLink>

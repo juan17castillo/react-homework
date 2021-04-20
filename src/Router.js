@@ -7,6 +7,7 @@ import MasterVenue from "./components/Venues/MasterVenue";
 import Error from "./components/Error";
 import Login from "./components/Login";
 import SingUp from "./components/SingUp";
+import UpdateUser from "./components/UpdateUser";
 
 class Router extends Component {
   render() {
@@ -18,6 +19,7 @@ class Router extends Component {
           <Route path="/home" component={Home}></Route>
           <Route path="/createVenue" component={CreateVenue}></Route>
           <Route path="/updateVenue/:idUpdate" component={UpdateVenue}></Route>
+          <Route path="/updateUser/:idUser" component={UpdateUser}></Route>
           <Route path="/venue/:id" component={MasterVenue}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/singUp" component={SingUp}></Route>

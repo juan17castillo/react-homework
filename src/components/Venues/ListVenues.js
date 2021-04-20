@@ -45,10 +45,7 @@ class ListVenues extends Component {
     });
   };
 
-  render() {
-    // if(this.state.delete === true) {
-    //   return <Redirect to="/home" />;
-    // }
+  render() { 
     return (
       <table className="table">
         <thead>

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Navbar from "../Navbar";
-import fire from "../../config/firebase";
 import SimpleReactValidator from "simple-react-validator";
 import es from "../../config/es";
+import fire from "../../config/firebase";
 
 class UpdateVenue extends Component {
   constructor(props) {
