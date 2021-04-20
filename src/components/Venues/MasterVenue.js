@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import fire from "../../config/firebase";
 import Navbar from "../Navbar";
 import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class MasterVenue extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+ 
   state = {
     venue: {},
     db: fire.firestore(),
@@ -61,6 +59,10 @@ class MasterVenue extends Component {
   }
 
   render() {
+    if(this.props.location.state === undefined || !this.props.location.state.logged){ 
+ 
+      return <Redirect to='/login'/>
+    }
     return (
       <div>
         <Navbar />
@@ -140,7 +142,7 @@ class MasterVenue extends Component {
                       {" "}
                       <NavLink
                         className="btn btn-warning mr-2"
-                        to={`/updateUser/${user.id}`}
+                        to={{pathname:`/updateUser/${user.id}`, state:{logged: this.props.logged}}}
                       >
                         <i className="fas fa-edit"></i>
                       </NavLink>

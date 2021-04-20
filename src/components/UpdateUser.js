@@ -4,6 +4,7 @@ import es from "../config/es";
 import "./validator.css";
 import Navbar from "./Navbar";
 import fire from "../config/firebase";
+import { Redirect } from "react-router";
 
 export class UpdateUser extends Component {
 
@@ -71,6 +72,10 @@ export class UpdateUser extends Component {
     }
 
     render() {
+        if(this.props.location.state === undefined || !this.props.location.state.logged){ 
+ 
+            return <Redirect to='/login'/>
+          }  
         return (
             <div>
                 <Navbar />

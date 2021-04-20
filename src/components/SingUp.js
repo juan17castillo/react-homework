@@ -89,7 +89,7 @@ class SingUp extends Component {
             console.log(error);
           });
 
-        this.state.singedUp = true;
+          this.setState({singedUp: true});
       }
     } else {
       this.validator.showMessages();
@@ -100,7 +100,7 @@ class SingUp extends Component {
 
   render() {
     if (this.state.singedUp) {
-      this.state.singedUp = false;
+      this.setState({singedUp: false});
       return <Redirect to="/login" />;
     }
     return (
