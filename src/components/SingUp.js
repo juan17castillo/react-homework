@@ -78,13 +78,12 @@ class SingUp extends Component {
               .collection("users")
               .doc(res.user.uid)
               .set({...this.state.user, id:res.user.uid});
-              
-            this.state.db
-              .collection("venues")
-              .doc(this.state.campusId)
-              .collection("users")
-              .doc(res.user.uid)
-              .set({ idUser: res.user.uid });
+            // this.state.db
+            //   .collection("venues")
+            //   .doc(this.state.campusId)
+            //   .collection("users")
+            //   .doc(res.user.uid)
+            //   .set({ idUser: res.user.uid });
           })
           .catch((error) => {
             console.log(error);
@@ -112,7 +111,7 @@ class SingUp extends Component {
               className="d-flex flex-column justify-content-center align-items-center"
               onSubmit={this.saveUser}
             >
-              <h2 className="mb-3">Sing Up</h2>
+              <h2 className="mb-3">Crea tu cuenta</h2>
               <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                 <label htmlFor="name" className="font-weight-bold">
                   Nombre
@@ -223,7 +222,7 @@ class SingUp extends Component {
 
               <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                 <label htmlFor="campus" className="font-weight-bold">
-                  Sedes
+                  Sedes disponibles
                 </label>
 
                 <select

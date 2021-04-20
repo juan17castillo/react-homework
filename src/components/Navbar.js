@@ -39,20 +39,11 @@ class Navbar extends Component {
               <li className="nav-item">
                 <NavLink
                   className="nav-link"
-                  to="/singUp"
-                  activeClassName="active"
-                >
-                  Sing Up
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  className="nav-link"
                   to="/"
                   activeClassName="active"
                   onClick={this.logout}
                 >
-                  Log out
+                  Cerrar sesión
                 </NavLink>
               </li>
             </ul>
