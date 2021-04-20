@@ -78,6 +78,7 @@ class SingUp extends Component {
               .collection("users")
               .doc(res.user.uid)
               .set({...this.state.user, id:res.user.uid});
+              
             this.state.db
               .collection("venues")
               .doc(this.state.campusId)
@@ -89,7 +90,7 @@ class SingUp extends Component {
             console.log(error);
           });
 
-        this.state.singedUp = true;
+          this.setState({singedUp: true});
       }
     } else {
       this.validator.showMessages();
@@ -100,7 +101,7 @@ class SingUp extends Component {
 
   render() {
     if (this.state.singedUp) {
-      this.state.singedUp = false;
+      this.setState({singedUp: false});
       return <Redirect to="/login" />;
     }
     return (

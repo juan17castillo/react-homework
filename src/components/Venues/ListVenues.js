@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import fire from "../../config/firebase";
 import Swal from "sweetalert2";
 import { NavLink } from "react-router-dom";
+import { Redirect } from "react-router";
 
 class ListVenues extends Component {
   state = {
@@ -46,6 +47,9 @@ class ListVenues extends Component {
   };
 
   render() { 
+    if(!this.props.logged){
+      return <Redirect to='/login'/>
+    }
     return (
       <table className="table">
         <thead>
@@ -69,13 +73,13 @@ class ListVenues extends Component {
                   <td>
                     <NavLink
                       className="btn btn-primary mr-2"
-                      to={id}
+                      to={{pathname:id, state:{logged: this.props.logged}}}
                       activeClassName="active"
                     >
                       {" "}
                       <i className="fas fa-eye"></i>
                     </NavLink>
-                    <NavLink className="btn btn-warning mr-2" to={idUpdate}>
+                    <NavLink className="btn btn-warning mr-2" to={{pathname:idUpdate, state:{logged: this.props.logged}}}>
                       <i className="fas fa-edit"></i>
                     </NavLink>
                     <button

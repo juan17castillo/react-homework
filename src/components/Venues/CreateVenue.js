@@ -3,6 +3,8 @@ import Navbar from "../Navbar";
 import fire from "../../config/firebase";
 import SimpleReactValidator from "simple-react-validator";
 import es from "../../config/es";
+import { Redirect } from "react-router";
+
 class CreateVenue extends Component {
   constructor() {
     super();
@@ -52,6 +54,10 @@ class CreateVenue extends Component {
   };
 
   render() {
+    if(this.props.location.state === undefined || !this.props.location.state.logged){ 
+ 
+      return <Redirect to='/login'/>
+    }  
     return (
       <div>
         <Navbar />

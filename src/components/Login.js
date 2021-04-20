@@ -35,6 +35,7 @@ class Login extends Component {
                 this.setState({logged:true}) 
             })
             .catch(err => {  
+                this.setState({logged:false}) 
                 console.log(err) 
             });
 
@@ -42,9 +43,8 @@ class Login extends Component {
     }
 
     render() {
-        if (this.state.logged) {
-            this.state.logged = false;
-            return <Redirect to='/home' />
+        if (this.state.logged) { 
+            return <Redirect to={{pathname:'/home', state:{logged: this.state.logged}}} />
         }
         return (
             <React.Fragment>
