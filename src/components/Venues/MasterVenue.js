@@ -12,6 +12,17 @@ class MasterVenue extends Component {
     venue: {},
     db: fire.firestore(),
     users: null,
+    query: "",
+    filteredQuery: [],
+  };
+
+  filterNames = (e) => {
+    e.preventDefault();
+    this.setState({
+      filteredQuery: this.state.users.filter((user) =>
+        user.name.includes(this.state.query)
+      ),
+    });
   };
 
   componentDidMount() {
@@ -40,6 +51,11 @@ class MasterVenue extends Component {
           users.push(data);
         });
         this.setState({ users: users });
+        this.setState({
+          filteredQuery: this.state.users.filter((user) =>
+            user.name.includes(this.state.query)
+          ),
+        });
       })
       .catch((error) => console.log(error));
   }
@@ -90,7 +106,21 @@ class MasterVenue extends Component {
           <h1 className="py-3">
             <strong>Usuarios asociados</strong>
           </h1>
-          <table class="table">
+          <form className="form-inline py-4" onSubmit={this.filterNames}>
+            <input
+              className="form-control mr-sm-2"
+              type="search"
+              placeholder="Escribe un nombre"
+              aria-label="Search"
+              onChange={(event) => this.setState({ query: event.target.value })}
+            />
+            <input
+              className="btn btn-outline-success my-2 my-sm-0"
+              type="submit"
+              value="Buscar"
+            />
+          </form>
+          <table className="table">
             <thead>
               <tr>
                 <th scope="col">Nombre</th>
@@ -100,34 +130,33 @@ class MasterVenue extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.state.users &&
-                this.state.users.map((user) => {
-                  return (
-                    <tr key={user.id}>
-                      <td>{user.name}</td>
-                      <td>{user.lastName}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        {" "}
-                        <NavLink
-                          className="btn btn-warning mr-2"
-                          to={`/updateUser/${user.id}`}
-                        >
-                          <i className="fas fa-edit"></i>
-                        </NavLink>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => this.onDelete(user.id)}
-                        >
-                          <i className="fas fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+              {this.state.filteredQuery.map((user) => {
+                return (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.email}</td>
+                    <td>
+                      {" "}
+                      <NavLink
+                        className="btn btn-warning mr-2"
+                        to={`/updateUser/${user.id}`}
+                      >
+                        <i className="fas fa-edit"></i>
+                      </NavLink>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => this.onDelete(user.id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
-          {this.state.users === null ? <p1>No hay usuarios asociados</p1> : ""}
+          {this.state.filteredQuery === null ? <p1>No hay usuarios asociados</p1> : ""}
         </div>
       </div>
     );

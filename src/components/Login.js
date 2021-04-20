@@ -51,7 +51,7 @@ class Login extends Component {
                 <div className="container">
                     <section className="mx-auto my-5 card w-50 py-3">
                         <form className="d-flex flex-column justify-content-center align-items-center" onSubmit={this.loginUser}>
-                            <h2 className="mb-5">Log In</h2>
+                            <h2 className="mb-5">Iniciar sesión</h2>
 
                             <div className="d-flex flex-column justify-content-center align-items-center mb-3">
                                 <label htmlFor="email" className="font-weight-bold">Email</label>
